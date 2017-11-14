@@ -22,7 +22,7 @@ const (
 	//PROJECT_ID = "around-xxx"
 	//BT_INSTANCE = "around-post"
 	// Needs to update this URL if you deploy it to cloud.
-	ES_URL = "http://35.196.242.238:9200"
+	ES_URL = "http://35.190.128.174:9200"
 )
 
 
@@ -35,8 +35,8 @@ type Location struct {
 
 type Post struct {
 	// `json:"user"` is for the json parsing of this User field. Otherwise, by default it's 'User'.
-	User     string `json:"user"`
-	Message  string  `json:"message"`
+	User     string `json:"user"`   //User = "1111"
+	Message  string  `json:"message"`   //Message = "kdkpsdkwefue[w"
 	Location Location `json:"location"`
 }
 
@@ -99,7 +99,9 @@ func handlerPost(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	fmt.Fprintf(w, "Post received: %s\n", p.Message)
+	//fmt.Fprintf(w, "Post received: %s\n", p.Message)
+
+	w.Write([]byte(p.Message))
 
 	id := uuid.New()
 	// Save to ES.
